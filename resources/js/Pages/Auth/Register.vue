@@ -2,28 +2,31 @@
     <Guest>
         <v-container fill-height>
             <v-row justify="center">
-                <v-card class="col-10 col-md-3"
+                <v-card class="col-10 col-sm-8 col-md-4 col-lg-3"
                         color="secondary"
                         dark>
-                    <v-card-title class="text-h4 justify-center"
+                    <v-card-title class="text-h5 justify-center"
                                   secondary-title>Register
                     </v-card-title>
                     <v-card-text class="my-4">
                         <v-form @submit.prevent="submit">
                             <v-text-field v-model="form.name"
                                           :error-messages="form.errors.name"
+                                          dense
                                           label="Name"
                                           prepend-inner-icon="mdi-account"
                                           solo-inverted>
                             </v-text-field>
                             <v-text-field v-model="form.phone"
                                           :error-messages="form.errors.phone"
+                                          dense
                                           label="Phone"
                                           prepend-inner-icon="mdi-phone"
                                           solo-inverted>
                             </v-text-field>
                             <v-text-field v-model="form.email"
                                           :error-messages="form.errors.email"
+                                          dense
                                           label="Email"
                                           prepend-inner-icon="mdi-email"
                                           solo-inverted>
@@ -32,6 +35,7 @@
                                           :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                           :error-messages="form.errors.password"
                                           :type="show ? 'text' : 'password'"
+                                          dense
                                           label="Password"
                                           prepend-inner-icon="mdi-lock"
                                           solo-inverted
@@ -41,6 +45,7 @@
                                           :append-icon="confirmShow ? 'mdi-eye' : 'mdi-eye-off'"
                                           :error-messages="form.errors.password_confirmation"
                                           :type="confirmShow ? 'text' : 'password'"
+                                          dense
                                           label="Confirm Password"
                                           prepend-inner-icon="mdi-lock"
                                           solo-inverted
@@ -48,7 +53,9 @@
                             </v-text-field>
                             <v-textarea v-model="form.address"
                                         :error-messages="form.errors.address"
+                                        dense
                                         label="Address"
+                                        no-resize
                                         prepend-inner-icon="mdi-map-marker"
                                         rows="2"
                                         solo-inverted>
@@ -56,7 +63,6 @@
                             <v-btn :disabled="form.processing"
                                    block
                                    color="primary"
-                                   large
                                    type="submit">
                                 SUBMIT
                             </v-btn>

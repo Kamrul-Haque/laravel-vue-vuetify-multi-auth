@@ -18,10 +18,9 @@ class UserController extends Controller
                             $relation->where('name', 'LIKE', "%{$search}%");
                         });
                 })
-                ->orderBy('name')
-                ->paginate()
+                ->orderBy($request->sortBy ?? 'id', $request->sortDesc ?? 'asc')
+                ->paginate($request->perPage)
                 ->withQueryString(),
-            'filter' => $request->search
         ]);
     }
 
@@ -72,7 +71,8 @@ class UserController extends Controller
 
         $user->roles()->detach();
 
-        foreach ($roles as $key => $role) {
+        foreach ($roles as $key => $role)
+        {
             $user->roles()->sync($roles[$key], false);
         }
 

@@ -85,19 +85,22 @@
                 <v-divider></v-divider>
                 <v-list-item-group v-model="group"
                                    active-class="primary">
-                    <v-list-item>
+                    <Link :class="route().current('admin.dashboard') ? 'primary' : ''"
+                          :href="route('admin.dashboard')"
+                          as="v-list-item">
                         <v-list-item-icon>
-                            <v-icon>mdi-home</v-icon>
+                            <v-icon>mdi-view-dashboard</v-icon>
                         </v-list-item-icon>
-                        <v-list-item-title>Home</v-list-item-title>
-                    </v-list-item>
-
-                    <v-list-item>
+                        <v-list-item-title>Dashboard</v-list-item-title>
+                    </Link>
+                    <Link :class="route().current('users.index') ? 'primary' : ''"
+                          :href="route('users.index')"
+                          as="v-list-item">
                         <v-list-item-icon>
-                            <v-icon>mdi-account</v-icon>
+                            <v-icon>mdi-account-group</v-icon>
                         </v-list-item-icon>
-                        <v-list-item-title>Account</v-list-item-title>
-                    </v-list-item>
+                        <v-list-item-title>Users</v-list-item-title>
+                    </Link>
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
