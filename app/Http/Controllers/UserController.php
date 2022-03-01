@@ -11,7 +11,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         return inertia('Users/Index', [
-            'users' => User::with('roles')
+            'users' => User::withTrashed()
+                ->with('roles')
                 ->when($request->search, function ($query, $search) {
                     $query->where('name', 'LIKE', "%{$search}%")
                         ->orWhereHas('roles', function ($relation) use ($search) {
@@ -51,7 +52,26 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        //
+        if (auth()->user()->id == $user->id)
+            return back()->with('error', 'You are logged in');
+
+        $user->delete();
+
+        return back()->with('success', 'Record Deleted');
+    }
+
+    public function restore($user)
+    {
+        User::onlyTrashed()->find($user)->restore();
+
+        return back()->with('success', 'Record Restored');
+    }
+
+    public function forceDelete($user)
+    {
+        User::onlyTrashed()->find($user)->forceDelete();
+
+        return back()->with('success', 'Record Permanently Deleted');
     }
 
     public function assignRolesForm(User $user)

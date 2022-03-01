@@ -93,7 +93,7 @@
                         </v-list-item-icon>
                         <v-list-item-title>Dashboard</v-list-item-title>
                     </Link>
-                    <Link :class="route().current('users.index') ? 'primary' : ''"
+                    <Link :class="route().current('users.*') ? 'primary' : ''"
                           :href="route('users.index')"
                           as="v-list-item">
                         <v-list-item-icon>
@@ -107,31 +107,33 @@
 
         <!-- Sizes your content based upon application components -->
         <v-main class="blue-grey lighten-5">
-
             <!-- Provides the application the proper gutter -->
-            <v-container fluid>
+            <v-container class="px-5 py-4"
+                         fluid>
+                <flash-message></flash-message>
                 <slot/>
             </v-container>
-
-            <v-footer absolute
-                      color="primary"
-                      dark
-                      outlined
-                      padless>
-                <v-col class="text-center"
-                       cols="12">Copyright &copy; {{ $page.props.app.name }}
-                </v-col>
-            </v-footer>
         </v-main>
+        <v-footer absolute
+                  app
+                  color="primary"
+                  dark
+                  padless>
+            <v-col class="text-center"
+                   cols="12">Copyright &copy; {{ $page.props.app.name }}
+            </v-col>
+        </v-footer>
     </v-app>
 </template>
 
 <script>
 import {Link} from "@inertiajs/inertia-vue";
+import FlashMessage from "@/Components/FlashMessage";
 
 export default {
     components: {
-        Link
+        Link,
+        FlashMessage
     },
     data() {
         return {

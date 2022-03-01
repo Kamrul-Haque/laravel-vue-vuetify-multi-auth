@@ -23,7 +23,7 @@ createInertiaApp({
                         light: {
                             primary: '#41b883',
                             secondary: '#34495E',
-                            accent: '#D3D3D3',
+                            accent: '#1976D2',
                             error: '#dc143c',
                         },
                     },

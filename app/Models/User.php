@@ -44,6 +44,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getDeletedAtAttribute($value)
+    {
+        if ($value)
+            return 'Inactive';
+
+        return 'Active';
+    }
+
     public function hasRole($role): bool
     {
         if (is_string($role))
