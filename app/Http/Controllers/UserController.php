@@ -15,6 +15,9 @@ class UserController extends Controller
                 ->with('roles')
                 ->when($request->search, function ($query, $search) {
                     $query->where('name', 'LIKE', "%{$search}%")
+                        ->orWhere('email', 'LIKE', "%{$search}%")
+                        ->orWhere('phone', 'LIKE', "%{$search}%")
+                        ->orWhere('address', 'LIKE', "%{$search}%")
                         ->orWhereHas('roles', function ($relation) use ($search) {
                             $relation->where('name', 'LIKE', "%{$search}%");
                         });
@@ -22,6 +25,12 @@ class UserController extends Controller
                 ->orderBy($request->sortBy ?? 'id', $request->sortDesc ?? 'asc')
                 ->paginate($request->perPage)
                 ->withQueryString(),
+            'filters' => [
+                'search' => $request->search,
+                'sortBy' => $request->sortBy,
+                'sortDesc' => $request->sortDesc,
+                'perPage' => $request->perPage,
+            ]
         ]);
     }
 
