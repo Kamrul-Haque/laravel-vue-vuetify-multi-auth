@@ -22,7 +22,7 @@ class UserController extends Controller
                             $relation->where('name', 'LIKE', "%{$search}%");
                         });
                 })
-                ->orderBy($request->sortBy ?? 'id', $request->sortDesc ?? 'asc')
+                ->orderBy($request->sortBy ?? 'id', $request->sortDesc ? 'desc' : 'asc')
                 ->paginate($request->perPage)
                 ->withQueryString(),
             'filters' => [

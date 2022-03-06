@@ -11,11 +11,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Layouts_Authenticated__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/Authenticated */ "./resources/js/Layouts/Authenticated.vue");
-/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Components_Paginator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Paginator */ "./resources/js/Components/Paginator.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Layouts_Authenticated__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/Authenticated */ "./resources/js/Layouts/Authenticated.vue");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Components_Paginator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/Paginator */ "./resources/js/Components/Paginator.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
 //
 //
 //
@@ -70,57 +79,56 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Authenticated: _Layouts_Authenticated__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Paginator: _Components_Paginator__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Authenticated: _Layouts_Authenticated__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Paginator: _Components_Paginator__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  props: ['headers', 'items', 'filters', 'indexRoute'],
+  props: ["headers", "items", "filters", "indexRoute"],
   data: function data() {
     return {
-      options: {},
       params: {
-        search: this.filters.search ? this.filters.search : '',
-        softBy: this.filters.softBy ? this.filters.softBy : '',
-        sortDesc: this.filters.sortDesc ? this.filters.sortDesc : '',
-        perPage: this.filters.perPage ? this.filters.perPage : 10
+        search: this.filters.search ? this.filters.search : "",
+        sortBy: this.filters.sortBy ? this.filters.sortBy : null,
+        sortDesc: !!this.filters.sortDesc,
+        perPage: this.filters.perPage ? parseInt(this.filters.perPage) : 10
       }
     };
   },
   watch: {
-    options: {
-      handler: function handler(value) {
-        this.params.page = this.items.current_page;
-
-        if (value.sortBy.length) {
-          this.params.sortBy = value.sortBy[0];
-          this.params.sortDesc = value.sortDesc[0] ? 'desc' : null;
-        } else {
-          this.params.sortBy = null;
-          this.params.sortDesc = null;
-        }
-
-        this.updateData();
-      },
-      deep: true
-    },
     params: {
       handler: function handler(value) {
-        if (value.perPage !== this.filters.perPage) this.params.page = 1;else this.params.page = this.items.current_page;
+        if (value.perPage !== parseInt(this.filters.perPage)) this.params.page = 1;else this.params.page = this.items.current_page;
         this.updateData();
       },
       deep: true
     },
-    search: (0,lodash__WEBPACK_IMPORTED_MODULE_2__.debounce)(function (value) {
+    search: (0,lodash__WEBPACK_IMPORTED_MODULE_3__.debounce)(function (value) {
       this.params.search = value;
       this.updateData();
     }, 300)
   },
   methods: {
     updateData: function updateData() {
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.get(this.indexRoute, this.params, {
-        preserveScroll: true,
-        preserveState: true,
-        replace: true
-      });
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.get(_this.indexRoute, _this.params, {
+                  preserveScroll: true,
+                  preserveState: true,
+                  replace: true
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -2182,7 +2190,7 @@ var render = function () {
             "h5",
             {
               staticClass:
-                "text-h5 text--secondary text-uppercase font-weight-bold",
+                "text-h5 secondary--text text-uppercase font-weight-bold",
             },
             [_vm._t("title")],
             2
@@ -2193,7 +2201,7 @@ var render = function () {
           _c("v-select", {
             staticClass: "col-4 col-md-1 text-caption mr-1",
             attrs: {
-              items: [1, 5, 10, 15, 20, 25],
+              items: [5, 10, 15, 20, 25],
               dense: "",
               flat: "",
               "hide-details": "",
@@ -2236,13 +2244,23 @@ var render = function () {
         attrs: {
           headers: _vm.headers,
           items: _vm.items.data,
-          options: _vm.options,
           "server-items-length": _vm.items.data.length,
+          "sort-by": _vm.params.sortBy,
+          "sort-desc": _vm.params.sortDesc,
           "hide-default-footer": "",
         },
         on: {
-          "update:options": function ($event) {
-            _vm.options = $event
+          "update:sortBy": function ($event) {
+            return _vm.$set(_vm.params, "sortBy", $event)
+          },
+          "update:sort-by": function ($event) {
+            return _vm.$set(_vm.params, "sortBy", $event)
+          },
+          "update:sortDesc": function ($event) {
+            return _vm.$set(_vm.params, "sortDesc", $event)
+          },
+          "update:sort-desc": function ($event) {
+            return _vm.$set(_vm.params, "sortDesc", $event)
           },
         },
         scopedSlots: _vm._u(
