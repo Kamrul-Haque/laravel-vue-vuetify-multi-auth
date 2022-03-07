@@ -19,9 +19,17 @@ class UserSeeder extends Seeder
         $user->name = "Mr. User";
         $user->email = "user@email.com";
         $user->password = Hash::make('123456789');
-        $user->phone = '01234567892';
+        $user->phone = '01234567893';
         if ($user->save())
             $user->assignRole('user');
+
+        $user = new User();
+        $user->name = "Mr. Designer";
+        $user->email = "designer@email.com";
+        $user->password = Hash::make('123456789');
+        $user->phone = '01234567892';
+        if ($user->save())
+            $user->assignRole('designer');
 
         $user = new User();
         $user->name = "Mr. Admin";

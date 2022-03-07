@@ -1,5 +1,6 @@
 <template>
     <Authenticated>
+        <Head title="Users"/>
         <data-table :filters="filters"
                     :headers="headers"
                     :index-route="this.route('users.index')"
@@ -12,7 +13,8 @@
                           as="v-btn"
                           color="accent"
                           icon
-                          small>
+                          small
+                          title="edit">
                         <v-icon small>mdi-pencil</v-icon>
                     </Link>
                     <Link :href="route('users.destroy', slotProp.item)"
@@ -20,7 +22,8 @@
                           color="warning"
                           icon
                           method="delete"
-                          small>
+                          small
+                          title="delete">
                         <v-icon small>mdi-delete</v-icon>
                     </Link>
                 </div>
@@ -31,12 +34,14 @@
                           color="success"
                           icon
                           method="post"
-                          small>
+                          small
+                          title="restore">
                         <v-icon small>mdi-recycle</v-icon>
                     </Link>
                     <v-btn color="error"
                            icon
                            small
+                           title="force-delete"
                            @click="deleteItem(slotProp.item)">
                         <v-icon small>
                             mdi-delete
@@ -79,11 +84,12 @@
 <script>
 import Authenticated from "@/Layouts/Authenticated";
 import {Inertia} from "@inertiajs/inertia";
-import {Link} from "@inertiajs/inertia-vue";
+import {Head, Link} from "@inertiajs/inertia-vue";
 import DataTable from "@/Components/DataTable";
 
 export default {
     components: {
+        Head,
         Authenticated,
         Link,
         DataTable

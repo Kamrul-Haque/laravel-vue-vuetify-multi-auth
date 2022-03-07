@@ -25,6 +25,11 @@ class RoleSeeder extends Seeder
             $role->allowTo('modify');
 
         $role = new Role();
+        $role->name = "designer";
+        if ($role->save())
+            $role->allowTo('publish');
+
+        $role = new Role();
         $role->name = "user";
         if ($role->save())
             $role->allowTo('access');

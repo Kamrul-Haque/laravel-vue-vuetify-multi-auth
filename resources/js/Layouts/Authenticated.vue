@@ -35,10 +35,11 @@
             <v-menu offset-y
                     transition="slide-y-transition">
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn text
+                    <v-btn style="text-transform: none"
+                           text
                            v-bind="attrs"
                            v-on="on">
-                        Account
+                        {{ user.name }}
                     </v-btn>
                 </template>
 
@@ -50,14 +51,14 @@
                         <v-list-item-title>Profile</v-list-item-title>
                     </v-list-item>
                     <Link :href="route('logout')"
-                          as="v-btn"
+                          as="v-list-item"
                           method="post"
                           small
                           text>
                         <v-icon left
                                 small>mdi-power
                         </v-icon>
-                        Logout
+                        <v-list-item-title>Logout</v-list-item-title>
                     </Link>
                 </v-list>
             </v-menu>
@@ -73,20 +74,25 @@
                 <v-list-item>
                     <v-list-item-avatar left
                                         size="35">
-                        <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+                        <v-img v-if="user.avatar"
+                               :src="user.avatar">
+                        </v-img>
+                        <v-icon v-else
+                                large>mdi-account-circle
+                        </v-icon>
                     </v-list-item-avatar>
                     <v-list-item-content>
-                        <v-list-item-title>{{ $page.props.auth.user.name }}</v-list-item-title>
+                        <v-list-item-title>{{ user.name }}</v-list-item-title>
                         <v-list-item-subtitle>
-                            {{ $page.props.auth.user.roles[0].name }}
+                            {{ role }}
                         </v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider></v-divider>
                 <v-list-item-group v-model="group"
                                    active-class="primary">
-                    <Link :class="route().current('admin.dashboard') ? 'primary' : ''"
-                          :href="route('admin.dashboard')"
+                    <Link :class="route().current('dashboard') ? 'primary' : ''"
+                          :href="route('dashboard')"
                           as="v-list-item">
                         <v-list-item-icon>
                             <v-icon>mdi-view-dashboard</v-icon>
@@ -141,11 +147,14 @@ export default {
             drawer: true
         };
     },
-    methods: {
-        hasRole(role) {
-            return this.$page.props.auth.user.roles.some(assigned => assigned.name === role);
+    computed: {
+        user() {
+            return this.$page.props.auth.user;
+        },
+        role() {
+            return this.$page.props.auth.user.roles[0].name;
         }
-    }
+    },
 };
 </script>
 

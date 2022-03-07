@@ -1,21 +1,23 @@
 <template>
-    <Layout>
+    <Guest>
+        <Head title="Welcome"/>
         <v-container>
             <v-card>
                 <v-card-title>Welcome</v-card-title>
             </v-card>
         </v-container>
-    </Layout>
+    </Guest>
 </template>
 
 <script>
-import {Link} from "@inertiajs/inertia-vue";
-import Layout from "@/Layouts/Guest";
+import {Head, Link} from "@inertiajs/inertia-vue";
+import Guest from "@/Layouts/Guest";
 
 export default {
     components: {
+        Guest,
         Link,
-        Layout
+        Head
     },
 };
 </script>

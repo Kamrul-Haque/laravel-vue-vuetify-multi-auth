@@ -2,7 +2,7 @@
     <Authenticated>
         <Head title="Dashboard"/>
         <v-card>
-            <v-card-title>Admin Dashboard</v-card-title>
+            <v-card-title>Designer Dashboard</v-card-title>
         </v-card>
     </Authenticated>
 </template>

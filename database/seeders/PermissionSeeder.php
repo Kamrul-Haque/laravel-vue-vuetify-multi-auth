@@ -19,6 +19,10 @@ class PermissionSeeder extends Seeder
         $permission->save();
 
         $permission = new Permission();
+        $permission->name = "publish";
+        $permission->save();
+
+        $permission = new Permission();
         $permission->name = "modify";
         $permission->save();
 

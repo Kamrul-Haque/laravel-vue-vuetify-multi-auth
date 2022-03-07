@@ -27,19 +27,7 @@ Route::get('/', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware('auth', 'permit:user')->name('dashboard');
-
-
-Route::get('/admin', function () {
-    return Inertia::render('AdminDashboard');
-})->middleware('auth', 'permit:admin')->name('admin.dashboard');
-
-Route::get('/super-admin', function () {
-    return Inertia::render('SuperAdminDashboard');
-})->middleware('auth', 'permit:super-admin')->name('super-admin.dashboard');
-
+Route::get('/dashboard', [Controllers\HomeController::class, 'dashboard'])->middleware('auth')->name('dashboard');
 
 Route::group(['middleware' => ['auth', 'permit:admin,super-admin']], function () {
     Route::resource('/users', Controllers\UserController::class);
