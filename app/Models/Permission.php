@@ -12,6 +12,14 @@ class Permission extends Model
 
     protected $guarded = [];
 
+    public function getDeletedAtAttribute($value)
+    {
+        if ($value)
+            return 'Inactive';
+
+        return 'Active';
+    }
+
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class)->withTimestamps();

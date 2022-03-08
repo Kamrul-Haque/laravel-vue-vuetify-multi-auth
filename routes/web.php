@@ -43,4 +43,6 @@ Route::group(['middleware' => ['auth', 'permit:admin,super-admin']], function ()
     Route::post('/roles/{role}/assign-permissions', [Controllers\RoleController::class, 'assignPermissions'])->name('roles.assign.permissions');
 
     Route::resource('/permissions', Controllers\PermissionController::class)->except('show');
+    Route::post('/permissions/{permission}/restore', [Controllers\PermissionController::class, 'restore'])->name('permissions.restore');
+    Route::delete('/permissions/{permission}/delete', [Controllers\PermissionController::class, 'forceDelete'])->name('permissions.force.delete')->can('force-delete');
 });

@@ -1,9 +1,9 @@
 <template>
     <Admin>
-        <Head title="Roles"/>
+        <Head title="Permissions"/>
         <v-card class="col-12 col-md-3 mx-auto">
             <v-card-title class="text-h5 justify-center secondary--text"
-                          v-text="role?'Edit Role':'Create Role'"></v-card-title>
+                          v-text="permission?'Edit Permission':'Create Permission'"></v-card-title>
             <v-card-text>
                 <v-form @submit.prevent="submit">
                     <v-text-field v-model="form.name"
@@ -12,20 +12,9 @@
                                   label="Name"
                                   prepend-inner-icon="mdi-account">
                     </v-text-field>
-                    <v-select v-show="permissions"
-                              v-model="form.permissions"
-                              :error-messages="form.errors.permissions"
-                              :items="permissions"
-                              chips
-                              item-text="name"
-                              item-value="id"
-                              label="Permissions"
-                              multiple
-                              prepend-inner-icon="mdi-shield-half-full">
-                    </v-select>
                     <div class="d-flex">
                         <v-spacer></v-spacer>
-                        <Link :href="route('roles.index')"
+                        <Link :href="route('permissions.index')"
                               as="v-btn"
                               color="secondary">Cancel
                         </Link>
@@ -53,23 +42,21 @@ export default {
         Head
     },
     props: {
-        role: Object,
-        permissions: Array
+        permission: Object
     },
     data() {
         return {
             form: this.$inertia.form({
-                name: this.role ? this.role.name : '',
-                permissions: ''
+                name: this.permission ? this.permission.name : '',
             })
         }
     },
     methods: {
         submit() {
-            if (this.role)
-                this.form.put(this.route('roles.update', this.role));
+            if (this.permission)
+                this.form.put(this.route('permissions.update', this.permission));
             else
-                this.form.post(this.route('roles.store'));
+                this.form.post(this.route('permissions.store'));
         }
     }
 }

@@ -2,9 +2,8 @@
     <Admin>
         <Head title="Users"/>
         <v-card class="col-12 col-md-3 mx-auto">
-            <v-card-title class="text-h5 justify-center secondary--text">
-                Create User
-            </v-card-title>
+            <v-card-title class="text-h5 justify-center secondary--text"
+                          v-text="user?'Edit User':'Create User'"></v-card-title>
             <v-card-text>
                 <v-form @submit.prevent="submit">
                     <v-text-field v-model="form.name"

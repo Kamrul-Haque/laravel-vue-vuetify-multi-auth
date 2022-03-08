@@ -10,20 +10,25 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
         return inertia('Permissions/Index', [
-            'permissions' => Permission::query()
+            'permissions' => Permission::withTrashed()
                 ->when($request->search, function ($query, $search) {
                     $query->where('name', 'LIKE', "%{$search}%");
                 })
-                ->orderBy('name')
-                ->paginate()
+                ->orderBy($request->sortBy ?? 'id', $request->boolean('sortDesc') ? 'desc' : 'asc')
+                ->paginate($request->perPage)
                 ->withQueryString(),
-            'filter' => $request->search
+            'filters' => [
+                'search' => $request->search,
+                'sortBy' => $request->sortBy,
+                'sortDesc' => $request->sortDesc,
+                'perPage' => $request->perPage,
+            ]
         ]);
     }
 
     public function create()
     {
-        return inertia('Permissions/Create');
+        return inertia('Permissions/Form');
     }
 
     public function store(Request $request)
@@ -32,16 +37,15 @@ class PermissionController extends Controller
             'name' => ['required', 'min:4', 'unique:permissions']
         ]);
 
-        Permission::create($valid);
+        if (Permission::create($valid))
+            return redirect()->route('permissions.index')->with('success', 'Permission Created');
 
-        return redirect()->route('permissions.index')->with('success', 'Permission Created');
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function edit(Permission $permission)
     {
-        return inertia('Permissions/Edit', [
-            'permission' => $permission
-        ]);
+        return inertia('Permissions/Form', ['permission' => $permission]);
     }
 
     public function update(Request $request, Permission $permission)
@@ -50,15 +54,33 @@ class PermissionController extends Controller
             'name' => ['required', 'min:4', 'unique:permissions,name,' . $permission->id]
         ]);
 
-        $permission->update($valid);
+        if ($permission->update($valid))
+            return redirect()->route('permissions.index')->with('success', 'Permission Updated');
 
-        return redirect()->route('permissions.index')->with('success', 'Permission Updated');
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function destroy(Permission $permission)
     {
-        $permission->delete();
+        if ($permission->delete())
+            return back()->with('success', 'Permission Deleted');
 
-        return back()->with('success', 'Permission Deleted');
+        return back()->with('error', 'Something Went Wrong');
+    }
+
+    public function restore($permission)
+    {
+        if (Permission::onlyTrashed()->find($permission)->restore())
+            return back()->with('success', 'Record Restored');
+
+        return back()->with('error', 'Something Went Wrong');
+    }
+
+    public function forceDelete($permission)
+    {
+        if (Permission::onlyTrashed()->find($permission)->forceDelete())
+            return back()->with('success', 'Record Permanently Deleted');
+
+        return back()->with('error', 'Something Went Wrong');
     }
 }

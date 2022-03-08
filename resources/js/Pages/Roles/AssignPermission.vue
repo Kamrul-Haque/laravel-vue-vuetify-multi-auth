@@ -1,6 +1,6 @@
 <template>
     <Admin>
-        <Head title="Users"/>
+        <Head title="Roles"/>
         <v-card class="col-12 col-md-4 col-lg-3 mx-auto">
             <v-card-title class="text-h5 secondary--text justify-center">{{ role.name }} - Assign Roles</v-card-title>
             <v-card-text>

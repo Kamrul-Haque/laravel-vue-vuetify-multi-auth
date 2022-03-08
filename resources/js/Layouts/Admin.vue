@@ -81,6 +81,7 @@
                                 large>mdi-account-circle
                         </v-icon>
                     </v-list-item-avatar>
+
                     <v-list-item-content>
                         <v-list-item-title>{{ user.name }}</v-list-item-title>
                         <v-list-item-subtitle>
@@ -99,6 +100,7 @@
                         </v-list-item-icon>
                         <v-list-item-title>Dashboard</v-list-item-title>
                     </Link>
+
                     <Link :class="route().current('users.*') ? 'primary' : ''"
                           :href="route('users.index')"
                           as="v-list-item">
@@ -107,6 +109,7 @@
                         </v-list-item-icon>
                         <v-list-item-title>Users</v-list-item-title>
                     </Link>
+
                     <Link :class="route().current('roles.*') ? 'primary' : ''"
                           :href="route('roles.index')"
                           as="v-list-item">
@@ -114,6 +117,15 @@
                             <v-icon>mdi-shield-account</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>Roles</v-list-item-title>
+                    </Link>
+
+                    <Link :class="route().current('permissions.*') ? 'primary' : ''"
+                          :href="route('permissions.index')"
+                          as="v-list-item">
+                        <v-list-item-icon>
+                            <v-icon>mdi-shield-half-full</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>Permissions</v-list-item-title>
                     </Link>
                 </v-list-item-group>
             </v-list>
