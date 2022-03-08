@@ -477,6 +477,11 @@ __webpack_require__.r(__webpack_exports__);
     canRegister: Boolean,
     laravelVersion: String,
     phpVersion: String
+  },
+  computed: {
+    user: function user() {
+      return this.$page.props.auth.user;
+    }
   }
 });
 
@@ -3290,7 +3295,7 @@ var render = function () {
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
-          _vm.$page.props.auth
+          _vm.user
             ? _c(
                 "Link",
                 {
@@ -3305,7 +3310,7 @@ var render = function () {
               )
             : _vm._e(),
           _vm._v(" "),
-          !_vm.$page.props.auth
+          !_vm.user
             ? _c(
                 "Link",
                 {
@@ -3320,7 +3325,7 @@ var render = function () {
               )
             : _vm._e(),
           _vm._v(" "),
-          !_vm.$page.props.auth
+          !_vm.user
             ? _c(
                 "Link",
                 {

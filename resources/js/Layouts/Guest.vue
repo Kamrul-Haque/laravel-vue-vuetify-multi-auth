@@ -12,21 +12,21 @@
                 </v-img>
             </Link>
             <v-spacer></v-spacer>
-            <Link v-if="$page.props.auth"
+            <Link v-if="user"
                   :href="route('dashboard')"
                   as="v-btn"
                   color="primary"
                   text>
                 Dashboard
             </Link>
-            <Link v-if="!$page.props.auth"
+            <Link v-if="!user"
                   :href="route('login')"
                   as="v-btn"
                   color="primary"
                   text>
                 Login
             </Link>
-            <Link v-if="!$page.props.auth"
+            <Link v-if="!user"
                   :href="route('register')"
                   as="v-btn"
                   color="secondary">
@@ -69,5 +69,10 @@ export default {
         laravelVersion: String,
         phpVersion: String,
     },
+    computed:{
+        user() {
+            return this.$page.props.auth.user;
+        },
+    }
 }
 </script>
