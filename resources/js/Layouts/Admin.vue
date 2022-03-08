@@ -107,6 +107,14 @@
                         </v-list-item-icon>
                         <v-list-item-title>Users</v-list-item-title>
                     </Link>
+                    <Link :class="route().current('roles.*') ? 'primary' : ''"
+                          :href="route('roles.index')"
+                          as="v-list-item">
+                        <v-list-item-icon>
+                            <v-icon>mdi-shield-account</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>Roles</v-list-item-title>
+                    </Link>
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>

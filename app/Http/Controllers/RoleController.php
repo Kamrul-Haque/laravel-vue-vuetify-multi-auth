@@ -11,39 +11,54 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         return inertia('Roles/Index', [
-            'roles' => Role::with('permissions')
+            'roles' => Role::withTrashed()
                 ->when($request->search, function ($query, $search) {
-                    $query->where('name', 'LIKE', "%{$search}%")
-                        ->orWhereHas('permissions', function ($relation) use ($search) {
-                            $relation->where('name', 'LIKE', "%{$search}%");
-                        });
+                    $query->where('name', 'LIKE', "%{$search}%");
                 })
-                ->orderBy('name')
-                ->paginate()
+                ->orderBy($request->sortBy ?? 'id', $request->boolean('sortDesc') ? 'desc' : 'asc')
+                ->paginate($request->perPage)
                 ->withQueryString(),
-            'filter' => $request->search
+            'filters' => [
+                'search' => $request->search,
+                'sortBy' => $request->sortBy,
+                'sortDesc' => $request->sortDesc,
+                'perPage' => $request->perPage,
+            ]
         ]);
     }
 
     public function create()
     {
-        return inertia('Roles/Create');
+        $permissions = Permission::orderBy('name')->get();
+
+        return inertia('Roles/Form', ['permissions' => $permissions]);
     }
 
     public function store(Request $request)
     {
         $valid = $request->validate([
-            'name' => ['required', 'min:4', 'unique:roles']
+            'name' => ['required', 'min:4', 'unique:roles'],
+            'permissions' => ['required', 'array', 'min:1']
         ]);
 
-        Role::create($valid);
+        $role = Role::create([
+            'name' => $valid['name']
+        ]);
 
-        return redirect()->route('roles.index')->with('success', 'Role Created');
+        if ($role)
+        {
+            if ($role->permissions()->sync($request->input('permissions')))
+                return redirect()->route('roles.index')->with('success', 'Role Created');
+            else
+                $role->delete();
+        }
+
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function edit(Role $role)
     {
-        return inertia('Roles/Edit', ['role' => $role]);
+        return inertia('Roles/Form', ['role' => $role]);
     }
 
     public function update(Request $request, Role $role)
@@ -52,24 +67,44 @@ class RoleController extends Controller
             'name' => ['required', 'min:4', 'unique:roles,name,' . $role->id]
         ]);
 
-        if (!auth()->user()->hasRole($role)) {
-            $role->update($valid);
-
-            return redirect()->route('roles.index')->with('success', 'Role Updated');
+        if (!auth()->user()->hasRole($role))
+        {
+            if ($role->update($valid))
+                return redirect()->route('roles.index')->with('success', 'Role Updated');
         }
         else
             return back()->with('error', "Can't edit your Role");
+
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function destroy(Role $role)
     {
-        if (!auth()->user()->hasRole($role)) {
-            $role->delete();
-
-            return redirect()->route('roles.index')->with('success', 'Role Deleted');
+        if (!auth()->user()->hasRole($role))
+        {
+            if ($role->delete())
+                return redirect()->route('roles.index')->with('success', 'Role Deleted');
         }
         else
             return back()->with('error', "Can't delete your Role");
+
+        return back()->with('error', 'Something Went Wrong');
+    }
+
+    public function restore($role)
+    {
+        if (Role::onlyTrashed()->find($role)->restore())
+            return back()->with('success', 'Record Restored');
+
+        return back()->with('error', 'Something Went Wrong');
+    }
+
+    public function forceDelete($role)
+    {
+        if (Role::onlyTrashed()->find($role)->forceDelete())
+            return back()->with('success', 'Record Permanently Deleted');
+
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function assignPermissionsForm(Role $role)
@@ -89,8 +124,10 @@ class RoleController extends Controller
 
         $role->permissions()->detach();
 
-        foreach ($permissions as $key => $permission) {
-            $role->permissions()->sync($permissions[$key], false);
+        foreach ($permissions as $key => $permission)
+        {
+            if (!$role->permissions()->sync($permissions[$key], false))
+                return back()->with('error', 'Something Went Wrong');
         }
 
         return redirect()->route('roles.index')->with('success', 'Permissions Assigned');

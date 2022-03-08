@@ -1,20 +1,20 @@
 <template>
-    <Guest>
+    <Front>
         <v-container>
             <v-card>
                 <v-card-title>Welcome</v-card-title>
             </v-card>
         </v-container>
-    </Guest>
+    </Front>
 </template>
 
 <script>
 import {Link} from "@inertiajs/inertia-vue";
-import Guest from "@/Layouts/Guest";
+import Front from "@/Layouts/Front";
 
 export default {
     components: {
-        Guest,
+        Front,
         Link,
     },
 };

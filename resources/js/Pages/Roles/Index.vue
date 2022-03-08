@@ -1,24 +1,23 @@
 <template>
     <Admin>
-        <Head title="Users"/>
+        <Head title="Roles"/>
         <data-table :filters="filters"
                     :headers="headers"
-                    :index-route="this.route('users.index')"
-                    :items="users"
-                    multiple="roles">
+                    :index-route="this.route('roles.index')"
+                    :items="roles">
             <template v-slot:title>Users</template>
 
             <template v-slot:default="slotProp">
                 <div v-if="slotProp.item.deleted_at === 'Active'">
-                    <Link :href="route('users.assign.roles.form', slotProp.item)"
+                    <Link :href="route('roles.assign.permissions.form', slotProp.item)"
                           as="v-btn"
                           color="black"
                           icon
                           small
-                          title="roles">
-                        <v-icon small>mdi-shield-account</v-icon>
+                          title="permissions">
+                        <v-icon small>mdi-shield-half-full</v-icon>
                     </Link>
-                    <Link :href="route('users.edit', slotProp.item)"
+                    <Link :href="route('roles.edit', slotProp.item)"
                           as="v-btn"
                           color="accent"
                           icon
@@ -26,7 +25,7 @@
                           title="edit">
                         <v-icon small>mdi-pencil</v-icon>
                     </Link>
-                    <Link :href="route('users.destroy', slotProp.item)"
+                    <Link :href="route('roles.destroy', slotProp.item)"
                           as="v-btn"
                           color="warning"
                           icon
@@ -38,7 +37,7 @@
                 </div>
 
                 <div v-else>
-                    <Link :href="route('users.restore', slotProp.item)"
+                    <Link :href="route('roles.restore', slotProp.item)"
                           as="v-btn"
                           color="success"
                           icon
@@ -60,7 +59,7 @@
             </template>
 
             <template v-slot:create-button>
-                <Link :href="route('users.create')"
+                <Link :href="route('roles.create')"
                       as="v-btn"
                       class="flex-column"
                       color="primary">
@@ -103,14 +102,11 @@ export default {
         Link,
         DataTable
     },
-    props: ['users', 'filters'],
+    props: ['roles', 'filters'],
     data() {
         return {
             headers: [
                 {text: 'Name', value: 'name'},
-                {text: 'Email', value: 'email'},
-                {text: 'Phone', value: 'phone'},
-                {text: 'Address', value: 'address'},
                 {text: 'Status', value: 'deleted_at'},
                 {text: 'Actions', value: 'actions', sortable: false},
             ],
@@ -125,7 +121,7 @@ export default {
         },
         deleteItemConfirm() {
             this.dialogDelete = false;
-            Inertia.delete(this.route('users.force.delete', this.itemId));
+            Inertia.delete(this.route('roles.force.delete', this.itemId));
         }
     }
 }

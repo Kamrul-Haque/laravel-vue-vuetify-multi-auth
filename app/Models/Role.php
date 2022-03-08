@@ -12,6 +12,14 @@ class Role extends Model
 
     protected $guarded = [];
 
+    public function getDeletedAtAttribute($value)
+    {
+        if ($value)
+            return 'Inactive';
+
+        return 'Active';
+    }
+
     public function allowTo($permission)
     {
         if (is_string($permission))

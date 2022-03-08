@@ -3,7 +3,7 @@
         <Head title="Users"/>
         <v-card class="col-12 col-md-3 mx-auto">
             <v-card-title class="text-h5 justify-center secondary--text">
-                Create User
+                Create Role
             </v-card-title>
             <v-card-text>
                 <v-form @submit.prevent="submit">
@@ -13,37 +13,20 @@
                                   label="Name"
                                   prepend-inner-icon="mdi-account">
                     </v-text-field>
-                    <v-text-field v-model="form.email"
-                                  :error-messages="form.errors.email"
-                                  label="Email"
-                                  prepend-inner-icon="mdi-email">
-                    </v-text-field>
-                    <v-text-field v-model="form.phone"
-                                  :error-messages="form.errors.phone"
-                                  label="Phone"
-                                  prepend-inner-icon="mdi-phone">
-                    </v-text-field>
-                    <v-textarea v-model="form.address"
-                                :error-messages="form.errors.address"
-                                label="Address"
-                                no-resize
-                                prepend-inner-icon="mdi-map-marker"
-                                rows="2">
-                    </v-textarea>
-                    <v-select v-show="roles"
-                              v-model="form.roles"
-                              :error-messages="form.errors.roles"
-                              :items="roles"
+                    <v-select v-show="permissions"
+                              v-model="form.permissions"
+                              :error-messages="form.errors.permissions"
+                              :items="permissions"
                               chips
                               item-text="name"
                               item-value="id"
-                              label="Roles"
+                              label="Permissions"
                               multiple
-                              prepend-inner-icon="mdi-shield-account">
+                              prepend-inner-icon="mdi-shield-half-full">
                     </v-select>
                     <div class="d-flex">
                         <v-spacer></v-spacer>
-                        <Link :href="route('users.index')"
+                        <Link :href="route('roles.index')"
                               as="v-btn"
                               color="secondary">Cancel
                         </Link>
@@ -71,26 +54,23 @@ export default {
         Head
     },
     props: {
-        user: Object,
-        roles: Array
+        role: Object,
+        permissions: Array
     },
     data() {
         return {
             form: this.$inertia.form({
-                name: this.user ? this.user.name : '',
-                email: this.user ? this.user.email : '',
-                phone: this.user ? this.user.phone : '',
-                address: this.user ? this.user.address : '',
-                roles: ''
+                name: this.role ? this.role.name : '',
+                permissions: ''
             })
         }
     },
     methods: {
         submit() {
-            if (this.user)
-                this.form.put(this.route('users.update', this.user));
+            if (this.role)
+                this.form.put(this.route('roles.update', this.role));
             else
-                this.form.post(this.route('users.store'));
+                this.form.post(this.route('roles.store'));
         }
     }
 }

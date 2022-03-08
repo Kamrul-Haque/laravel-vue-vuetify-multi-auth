@@ -15,17 +15,13 @@ class UserController extends Controller
     {
         return inertia('Users/Index', [
             'users' => User::withTrashed()
-                ->with('roles')
                 ->when($request->search, function ($query, $search) {
                     $query->where('name', 'LIKE', "%{$search}%")
                         ->orWhere('email', 'LIKE', "%{$search}%")
                         ->orWhere('phone', 'LIKE', "%{$search}%")
-                        ->orWhere('address', 'LIKE', "%{$search}%")
-                        ->orWhereHas('roles', function ($relation) use ($search) {
-                            $relation->where('name', 'LIKE', "%{$search}%");
-                        });
+                        ->orWhere('address', 'LIKE', "%{$search}%");
                 })
-                ->orderBy($request->sortBy ?? 'id', $request->sortDesc ?? 'asc')
+                ->orderBy($request->sortBy ?? 'id', $request->boolean('sortDesc') ? 'desc' : 'asc')
                 ->paginate($request->perPage)
                 ->withQueryString(),
             'filters' => [
@@ -40,9 +36,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::orderBy('name')->get();
-        return inertia('Users/Form', [
-            'roles' => $roles
-        ]);
+
+        return inertia('Users/Form', ['roles' => $roles]);
     }
 
     public function store(Request $request)
@@ -69,7 +64,7 @@ class UserController extends Controller
         {
             if ($user->roles()->sync($request->input('roles')))
             {
-                Mail::to($user->email)->send(new AccountCreationMail($user,$password));
+                Mail::to($user->email)->send(new AccountCreationMail($user, $password));
                 return redirect()->route('users.index')->with('success', 'Created Successfully');
             }
             else
@@ -86,9 +81,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return inertia('Users/Form', [
-            'user' => $user,
-        ]);
+        return inertia('Users/Form', ['user' => $user]);
     }
 
     public function update(Request $request, User $user)

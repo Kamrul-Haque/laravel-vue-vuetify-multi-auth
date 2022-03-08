@@ -2,18 +2,18 @@
     <Admin>
         <Head title="Users"/>
         <v-card class="col-12 col-md-4 col-lg-3 mx-auto">
-            <v-card-title class="text-h5 secondary--text justify-center">{{ user.name }} - Assign Roles</v-card-title>
+            <v-card-title class="text-h5 secondary--text justify-center">{{ role.name }} - Assign Roles</v-card-title>
             <v-card-text>
                 <h4 class="text-h6 mb-4">Roles</h4>
-                <v-form id="rolesForm"
+                <v-form id="permissionsForm"
                         @submit.prevent="submit">
-                    <div v-for="role in roles"
+                    <div v-for="role in permissions"
                          :key="role.id">
                         <label class="text-subtitle-1">
                             <input :checked="assigned.some(current=>current.id===role.id)"
                                    :value="role.id"
                                    class="primary--text"
-                                   name="roles[]"
+                                   name="permissions[]"
                                    type="checkbox"/>
                             {{ role.name }}
                         </label>
@@ -22,7 +22,7 @@
                     <v-divider class="my-4"></v-divider>
                     <div class="d-flex">
                         <v-spacer></v-spacer>
-                        <Link :href="route('users.index')"
+                        <Link :href="route('roles.index')"
                               as="v-btn"
                               color="secondary">Cancel
                         </Link>
@@ -44,8 +44,8 @@ import Admin from "@/Layouts/Admin";
 
 export default {
     props: {
-        user: Object,
-        roles: Array,
+        role: Object,
+        permissions: Array,
         assigned: Array
     },
     components: {
@@ -55,8 +55,8 @@ export default {
     },
     methods: {
         submit() {
-            var formData = new FormData(document.getElementById('rolesForm'));
-            Inertia.post(this.route('users.assign.roles', this.user), formData);
+            var formData = new FormData(document.getElementById('permissionsForm'));
+            Inertia.post(this.route('roles.assign.permissions', this.role), formData);
         }
     }
 }

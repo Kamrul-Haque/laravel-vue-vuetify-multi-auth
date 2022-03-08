@@ -1,5 +1,5 @@
 <template>
-    <Guest>
+    <Front>
         <Head title="Login"/>
         <v-container fill-height>
             <v-row justify="center">
@@ -42,16 +42,16 @@
                 </v-card>
             </v-row>
         </v-container>
-    </Guest>
+    </Front>
 </template>
 
 <script>
-import Guest from "@/Layouts/Guest";
+import Front from "@/Layouts/Front";
 import {Head, Link} from "@inertiajs/inertia-vue";
 
 export default {
     components: {
-        Guest,
+        Front,
         Link,
         Head
     },

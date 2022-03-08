@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import Authenticated from "@/Layouts/Authenticated";
+import Authenticated from "@/Layouts/Admin";
 import {Inertia} from "@inertiajs/inertia";
 import {debounce} from "lodash";
 import Paginator from "@/Components/Paginator";
@@ -76,11 +76,6 @@ export default {
                     this.params.page = 1;
                 else this.params.page = this.items.current_page;
                 this.updateData();
-
-                if (value.sortDesc)
-                    this.params.sortDesc = 'desc';
-                else
-                    this.params.sortDesc = null;
             },
             deep: true,
         },

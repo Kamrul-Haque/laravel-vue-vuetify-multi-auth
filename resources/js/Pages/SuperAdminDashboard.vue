@@ -1,19 +1,19 @@
 <template>
-    <Authenticated>
+    <Admin>
         <Head title="Dashboard"/>
         <v-card>
             <v-card-title>Super Admin Dashboard</v-card-title>
         </v-card>
-    </Authenticated>
+    </Admin>
 </template>
 
 <script>
 import {Head, Link} from "@inertiajs/inertia-vue";
-import Authenticated from "@/Layouts/Authenticated";
+import Admin from "@/Layouts/Admin";
 
 export default {
     components: {
-        Authenticated,
+        Admin,
         Link,
         Head
     },
