@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AccountCreationMail;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -23,7 +25,7 @@ class UserController extends Controller
                             $relation->where('name', 'LIKE', "%{$search}%");
                         });
                 })
-                ->orderBy($request->sortBy ?? 'id', $request->sortDesc ? 'desc' : 'asc')
+                ->orderBy($request->sortBy ?? 'id', $request->sortDesc ?? 'asc')
                 ->paginate($request->perPage)
                 ->withQueryString(),
             'filters' => [
@@ -66,7 +68,10 @@ class UserController extends Controller
         if ($user)
         {
             if ($user->roles()->sync($request->input('roles')))
+            {
+                Mail::to($user->email)->send(new AccountCreationMail($user,$password));
                 return redirect()->route('users.index')->with('success', 'Created Successfully');
+            }
             else
                 $user->delete();
         }

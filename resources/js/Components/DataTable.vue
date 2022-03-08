@@ -76,6 +76,11 @@ export default {
                     this.params.page = 1;
                 else this.params.page = this.items.current_page;
                 this.updateData();
+
+                if (value.sortDesc)
+                    this.params.sortDesc = 'desc';
+                else
+                    this.params.sortDesc = null;
             },
             deep: true,
         },

@@ -98,6 +98,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       handler: function handler(value) {
         if (value.perPage !== parseInt(this.filters.perPage)) this.params.page = 1;else this.params.page = this.items.current_page;
         this.updateData();
+        if (value.sortDesc) this.params.sortDesc = 'desc';else this.params.sortDesc = null;
       },
       deep: true
     },
