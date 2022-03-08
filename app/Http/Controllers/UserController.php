@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -36,12 +37,41 @@ class UserController extends Controller
 
     public function create()
     {
-        //
+        $roles = Role::orderBy('name')->get();
+        return inertia('Users/Form', [
+            'roles' => $roles
+        ]);
     }
 
     public function store(Request $request)
     {
-        //
+        $valid = $request->validate([
+            'name' => 'required|string|max:20',
+            'email' => 'required|string|email|max:20|unique:users',
+            'phone' => 'required|starts_with:01|digits:11|unique:users',
+            'address' => 'nullable|string|max:255',
+            'roles' => 'required|array|min:1'
+        ]);
+
+        $password = Str::uuid()->toString();
+
+        $user = User::create([
+            'name' => $valid['name'],
+            'email' => $valid['email'],
+            'phone' => $valid['phone'],
+            'address' => $valid['address'],
+            'password' => bcrypt($password),
+        ]);
+
+        if ($user)
+        {
+            if ($user->roles()->sync($request->input('roles')))
+                return redirect()->route('users.index')->with('success', 'Created Successfully');
+            else
+                $user->delete();
+        }
+
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function show(User $user)
@@ -51,12 +81,24 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        //
+        return inertia('Users/Form', [
+            'user' => $user,
+        ]);
     }
 
     public function update(Request $request, User $user)
     {
-        //
+        $valid = $request->validate([
+            'name' => 'required|string|max:20',
+            'email' => 'required|string|email|max:20|unique:users,email,' . $user->id,
+            'phone' => 'required|starts_with:01|digits:11|unique:users,phone,' . $user->id,
+            'address' => 'nullable|string|max:255',
+        ]);
+
+        if ($user->update($valid))
+            return redirect()->route('users.index')->with('success', 'Updated Successfully');
+
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function destroy(User $user)
@@ -64,23 +106,26 @@ class UserController extends Controller
         if (auth()->user()->id == $user->id)
             return back()->with('error', 'You are logged in');
 
-        $user->delete();
+        if ($user->delete())
+            return back()->with('success', 'Record Deleted');
 
-        return back()->with('success', 'Record Deleted');
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function restore($user)
     {
-        User::onlyTrashed()->find($user)->restore();
+        if (User::onlyTrashed()->find($user)->restore())
+            return back()->with('success', 'Record Restored');
 
-        return back()->with('success', 'Record Restored');
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function forceDelete($user)
     {
-        User::onlyTrashed()->find($user)->forceDelete();
+        if (User::onlyTrashed()->find($user)->forceDelete())
+            return back()->with('success', 'Record Permanently Deleted');
 
-        return back()->with('success', 'Record Permanently Deleted');
+        return back()->with('error', 'Something Went Wrong');
     }
 
     public function assignRolesForm(User $user)
@@ -102,7 +147,8 @@ class UserController extends Controller
 
         foreach ($roles as $key => $role)
         {
-            $user->roles()->sync($roles[$key], false);
+            if (!$user->roles()->sync($roles[$key], false))
+                return back()->with('error', 'Something Went Wrong');
         }
 
         return redirect()->route('users.index')->with('success', 'Roles Assigned');

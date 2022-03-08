@@ -12,13 +12,22 @@
                 </v-img>
             </Link>
             <v-spacer></v-spacer>
-            <Link :href="route('login')"
+            <Link v-if="$page.props.auth"
+                  :href="route('dashboard')"
+                  as="v-btn"
+                  color="primary"
+                  text>
+                Dashboard
+            </Link>
+            <Link v-if="!$page.props.auth"
+                  :href="route('login')"
                   as="v-btn"
                   color="primary"
                   text>
                 Login
             </Link>
-            <Link :href="route('register')"
+            <Link v-if="!$page.props.auth"
+                  :href="route('register')"
                   as="v-btn"
                   color="secondary">
                 Register

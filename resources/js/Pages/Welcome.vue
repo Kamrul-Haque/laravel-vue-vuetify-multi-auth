@@ -1,6 +1,5 @@
 <template>
     <Guest>
-        <Head title="Welcome"/>
         <v-container>
             <v-card>
                 <v-card-title>Welcome</v-card-title>
@@ -10,14 +9,13 @@
 </template>
 
 <script>
-import {Head, Link} from "@inertiajs/inertia-vue";
+import {Link} from "@inertiajs/inertia-vue";
 import Guest from "@/Layouts/Guest";
 
 export default {
     components: {
         Guest,
         Link,
-        Head
     },
 };
 </script>

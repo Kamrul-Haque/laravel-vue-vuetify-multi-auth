@@ -9,6 +9,14 @@
 
             <template v-slot:default="slotProp">
                 <div v-if="slotProp.item.deleted_at === 'Active'">
+                    <Link :href="route('users.assign.roles.form', slotProp.item)"
+                          as="v-btn"
+                          color="black"
+                          icon
+                          small
+                          title="roles">
+                        <v-icon small>mdi-account-circle</v-icon>
+                    </Link>
                     <Link :href="route('users.edit', slotProp.item)"
                           as="v-btn"
                           color="accent"
