@@ -37,7 +37,10 @@
         <!-- Sizes your content based upon application components -->
         <v-main class="blue-grey lighten-5">
             <!-- Provides the application the proper gutter -->
-            <slot/>
+            <v-container class="py-12">
+                <flash-message></flash-message>
+                <slot/>
+            </v-container>
         </v-main>
 
         <v-footer app
@@ -58,10 +61,12 @@ html {
 
 <script>
 import {Link} from "@inertiajs/inertia-vue";
+import FlashMessage from "@/Components/FlashMessage";
 
 export default {
     components: {
         Link,
+        FlashMessage
     },
     props: {
         canLogin: Boolean,
@@ -69,7 +74,7 @@ export default {
         laravelVersion: String,
         phpVersion: String,
     },
-    computed:{
+    computed: {
         user() {
             return this.$page.props.auth.user;
         },

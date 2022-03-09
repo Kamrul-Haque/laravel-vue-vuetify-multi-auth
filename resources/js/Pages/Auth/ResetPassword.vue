@@ -1,15 +1,18 @@
 <template>
     <Front>
-        <Head title="Login"/>
+        <Head title="Reset Password"/>
 
         <v-card class="mx-auto col-10 col-sm-8 col-md-4 col-lg-3"
                 color="secondary"
                 dark>
-            <v-card-title class="text-h5 justify-center">Login</v-card-title>
+            <v-card-title class="text-h5 justify-center"
+                          secondary-title>Reset Password
+            </v-card-title>
             <v-card-text class="my-4">
                 <v-form @submit.prevent="submit">
                     <v-text-field v-model="form.email"
                                   :error-messages="form.errors.email"
+                                  autofocus
                                   dense
                                   label="Email"
                                   prepend-inner-icon="mdi-email"
@@ -19,35 +22,27 @@
                                   :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                   :error-messages="form.errors.password"
                                   :type="show ? 'text' : 'password'"
-                                  class="mt-4"
                                   dense
                                   label="Password"
                                   prepend-inner-icon="mdi-lock"
                                   solo-inverted
                                   @click:append="show = !show">
                     </v-text-field>
-                    <div class="d-flex align-center">
-                        <v-checkbox v-model:checked="form.remember"
-                                    color="primary"
-                                    label="Remember Me">
-                        </v-checkbox>
-
-                        <v-spacer></v-spacer>
-
-                        <Link :href="route('password.request')"
-                              as="v-btn"
-                              color="primary"
-                              small
-                              style="text-transform: none"
-                              text>
-                            Forgot your password?
-                        </Link>
-                    </div>
+                    <v-text-field v-model="form.password_confirmation"
+                                  :append-icon="confirmShow ? 'mdi-eye' : 'mdi-eye-off'"
+                                  :error-messages="form.errors.password_confirmation"
+                                  :type="confirmShow ? 'text' : 'password'"
+                                  dense
+                                  label="Confirm Password"
+                                  prepend-inner-icon="mdi-lock"
+                                  solo-inverted
+                                  @click:append="confirmShow = !confirmShow">
+                    </v-text-field>
                     <v-btn :disabled="form.processing"
                            block
                            color="primary"
                            type="submit">
-                        SUBMIT
+                        Reset Password
                     </v-btn>
                 </v-form>
             </v-card-text>
@@ -56,31 +51,39 @@
 </template>
 
 <script>
+import {Head} from "@inertiajs/inertia-vue";
 import Front from "@/Layouts/Front";
-import {Head, Link} from "@inertiajs/inertia-vue";
 
 export default {
     components: {
         Front,
-        Link,
-        Head
+        Head,
     },
+
+    props: {
+        email: String,
+        token: String,
+    },
+
     data() {
         return {
-            show: false,
             form: this.$inertia.form({
-                email: '',
-                password: '',
-                remember: false
-            })
-        }
+                token: this.token,
+                email: this.email,
+                password: "",
+                password_confirmation: "",
+            }),
+            show: null,
+            confirmShow: null
+        };
     },
+
     methods: {
         submit() {
-            this.form.post(this.route('login'), {
-                onFinish: () => this.form.reset('password'),
+            this.form.post(this.route("password.update"), {
+                onFinish: () => this.form.reset("password", "password_confirmation"),
             });
-        }
-    }
-}
+        },
+    },
+};
 </script>
