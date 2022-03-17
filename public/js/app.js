@@ -594,6 +594,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -680,6 +687,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -693,13 +708,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: this.$inertia.form({
-        email: ''
+        email: ""
       })
     };
   },
   methods: {
     submit: function submit() {
-      this.form.post(this.route('password.email'));
+      this.form.post(this.route("password.email"));
     }
   }
 });
@@ -776,6 +791,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -788,8 +813,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       show: false,
       form: this.$inertia.form({
-        email: '',
-        password: '',
+        email: "",
+        password: "",
         remember: false
       })
     };
@@ -798,9 +823,9 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
-      this.form.post(this.route('login'), {
+      this.form.post(this.route("login"), {
         onFinish: function onFinish() {
-          return _this.form.reset('password');
+          return _this.form.reset("password");
         }
       });
     }
@@ -923,6 +948,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -936,12 +986,12 @@ __webpack_require__.r(__webpack_exports__);
       show: false,
       confirmShow: false,
       form: this.$inertia.form({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        phone: '',
-        address: ''
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        phone: "",
+        address: ""
       })
     };
   },
@@ -949,9 +999,9 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
-      this.form.post(this.route('register'), {
+      this.form.post(this.route("register"), {
         onFinish: function onFinish() {
-          return _this.form.reset('password', 'password_confirmation');
+          return _this.form.reset("password", "password_confirmation");
         }
       });
     }
@@ -973,6 +1023,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _Layouts_Front__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/Front */ "./resources/js/Layouts/Front.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1076,6 +1139,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _Layouts_Front__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/Front */ "./resources/js/Layouts/Front.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2317,7 +2389,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.v-btn[data-v-e59c811e] {\r\n    text-transform: none !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.v-btn[data-v-e59c811e] {\n\ttext-transform: none !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5037,13 +5109,13 @@ var render = function () {
       _c(
         "v-card",
         {
-          staticClass: "mx-auto col-10 col-sm-8 col-md-4 col-lg-3",
+          staticClass: "mx-auto col-12 col-sm-8 col-md-4 col-xl-3",
           attrs: { color: "secondary", dark: "" },
         },
         [
           _c("v-card-subtitle", [
             _vm._v(
-              "\n            This is a secure area of the application. Please confirm your password before continuing.\n        "
+              "\n\t\t\tThis is a secure area of the application. Please confirm your password before continuing.\n\t\t"
             ),
           ]),
           _vm._v(" "),
@@ -5096,7 +5168,7 @@ var render = function () {
                         type: "submit",
                       },
                     },
-                    [_vm._v("\n                    Confirm\n                ")]
+                    [_vm._v("\n\t\t\t\t\tConfirm\n\t\t\t\t")]
                   ),
                 ],
                 1
@@ -5144,23 +5216,23 @@ var render = function () {
             "v-alert",
             {
               staticClass:
-                "success--text col-10 col-sm-8 col-md-4 col-lg-3 mx-auto",
+                "success--text mx-auto col-12 col-sm-8 col-md-4 col-xl-3",
               attrs: { border: "left", color: "success", "colored-border": "" },
             },
-            [_vm._v("\n        " + _vm._s(_vm.status) + "\n    ")]
+            [_vm._v("\n\t\t" + _vm._s(_vm.status) + "\n\t")]
           )
         : _vm._e(),
       _vm._v(" "),
       _c(
         "v-card",
         {
-          staticClass: "mx-auto col-10 col-sm-8 col-md-4 col-lg-3",
+          staticClass: "mx-auto col-12 col-sm-8 col-md-4 col-xl-3",
           attrs: { color: "secondary", dark: "" },
         },
         [
           _c("v-card-subtitle", [
             _vm._v(
-              "\n            Forgot your password? No problem. Just let us know your email address and we will email you a\n            password reset link that will allow you to choose a new one.\n        "
+              "\n\t\t\tForgot your password? No problem. Just let us know your email address and we will email you a\n\t\t\tpassword reset link that will allow you to choose a new one.\n\t\t"
             ),
           ]),
           _vm._v(" "),
@@ -5206,11 +5278,7 @@ var render = function () {
                         type: "submit",
                       },
                     },
-                    [
-                      _vm._v(
-                        "\n                    Email Password Reset Link\n                "
-                      ),
-                    ]
+                    [_vm._v("\n\t\t\t\t\tEmail Password Reset Link\n\t\t\t\t")]
                   ),
                 ],
                 1
@@ -5256,7 +5324,7 @@ var render = function () {
       _c(
         "v-card",
         {
-          staticClass: "mx-auto col-10 col-sm-8 col-md-4 col-lg-3",
+          staticClass: "mx-auto col-12 col-sm-8 col-md-4 col-xl-3",
           attrs: { color: "secondary", dark: "" },
         },
         [
@@ -5323,7 +5391,7 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "d-flex align-center" },
+                    { staticClass: "d-md-flex align-center" },
                     [
                       _c("v-checkbox", {
                         attrs: { color: "primary", label: "Remember Me" },
@@ -5341,18 +5409,14 @@ var render = function () {
                       _c(
                         "Link",
                         {
-                          staticStyle: { "text-transform": "none" },
                           attrs: {
                             href: _vm.route("password.request"),
-                            as: "v-btn",
                             color: "primary",
-                            small: "",
-                            text: "",
                           },
                         },
                         [
                           _vm._v(
-                            "\n                        Forgot your password?\n                    "
+                            "\n\t\t\t\t\tforgot your password?\n\t\t\t\t\t"
                           ),
                         ]
                       ),
@@ -5363,6 +5427,7 @@ var render = function () {
                   _c(
                     "v-btn",
                     {
+                      staticClass: "mt-3",
                       attrs: {
                         disabled: _vm.form.processing,
                         block: "",
@@ -5370,7 +5435,7 @@ var render = function () {
                         type: "submit",
                       },
                     },
-                    [_vm._v("\n                    SUBMIT\n                ")]
+                    [_vm._v("\n\t\t\t\t\tSUBMIT\n\t\t\t\t")]
                   ),
                 ],
                 1
@@ -5416,7 +5481,7 @@ var render = function () {
       _c(
         "v-card",
         {
-          staticClass: "mx-auto col-10 col-sm-8 col-md-4 col-lg-3",
+          staticClass: "mx-auto col-12 col-sm-8 col-md-4 col-xl-3",
           attrs: { color: "secondary", dark: "" },
         },
         [
@@ -5426,7 +5491,7 @@ var render = function () {
               staticClass: "text-h5 justify-center",
               attrs: { "secondary-title": "" },
             },
-            [_vm._v("Register\n        ")]
+            [_vm._v("Register\n\t\t")]
           ),
           _vm._v(" "),
           _c(
@@ -5574,7 +5639,7 @@ var render = function () {
                         type: "submit",
                       },
                     },
-                    [_vm._v("\n                    SUBMIT\n                ")]
+                    [_vm._v("\n\t\t\t\t\tSUBMIT\n\t\t\t\t")]
                   ),
                 ],
                 1
@@ -5604,7 +5669,7 @@ var render = function () {
                 },
                 [
                   _c("v-icon", { attrs: { left: "" } }, [_vm._v("mdi-google")]),
-                  _vm._v("\n                Sign Up with Google\n            "),
+                  _vm._v("\n\t\t\tSign Up with Google\n\t\t\t"),
                 ],
                 1
               ),
@@ -5634,9 +5699,7 @@ var render = function () {
                   _c("v-icon", { attrs: { left: "" } }, [
                     _vm._v("mdi-facebook"),
                   ]),
-                  _vm._v(
-                    "\n                Sign Up with Facebook\n            "
-                  ),
+                  _vm._v("\n\t\t\tSign Up with Facebook\n\t\t\t"),
                 ],
                 1
               ),
@@ -5681,7 +5744,7 @@ var render = function () {
       _c(
         "v-card",
         {
-          staticClass: "mx-auto col-10 col-sm-8 col-md-4 col-lg-3",
+          staticClass: "mx-auto col-12 col-sm-8 col-md-4 col-xl-3",
           attrs: { color: "secondary", dark: "" },
         },
         [
@@ -5691,7 +5754,7 @@ var render = function () {
               staticClass: "text-h5 justify-center",
               attrs: { "secondary-title": "" },
             },
-            [_vm._v("Reset Password\n        ")]
+            [_vm._v("Reset Password\n\t\t")]
           ),
           _vm._v(" "),
           _c(
@@ -5787,11 +5850,7 @@ var render = function () {
                         type: "submit",
                       },
                     },
-                    [
-                      _vm._v(
-                        "\n                    Reset Password\n                "
-                      ),
-                    ]
+                    [_vm._v("\n\t\t\t\t\tReset Password\n\t\t\t\t")]
                   ),
                 ],
                 1
@@ -5839,12 +5898,12 @@ var render = function () {
             "v-alert",
             {
               staticClass:
-                "success--text col-10 col-sm-8 col-md-4 col-lg-3 mx-auto",
+                "success--text mx-auto col-12 col-sm-8 col-md-4 col-xl-3",
               attrs: { border: "left", color: "success", "colored-border": "" },
             },
             [
               _vm._v(
-                "\n        A new verification link has been sent to the email address you provided during registration.\n    "
+                "\n\t\tA new verification link has been sent to the email address you provided during registration.\n\t"
               ),
             ]
           )
@@ -5853,13 +5912,13 @@ var render = function () {
       _c(
         "v-card",
         {
-          staticClass: "mx-auto col-10 col-sm-8 col-md-4 col-lg-3",
+          staticClass: "mx-auto col-12 col-sm-8 col-md-4 col-xl-3",
           attrs: { color: "secondary", dark: "" },
         },
         [
           _c("v-card-subtitle", { staticClass: "mb-4 text-sm text-gray-600" }, [
             _vm._v(
-              "\n            Thanks for signing up! Before getting started, could you verify your email address by clicking on the\n            link\n            we just emailed to you? If you didn't receive the email, we will gladly send you another.\n        "
+              "\n\t\t\tThanks for signing up! Before getting started, could you verify your email address by clicking on the\n\t\t\tlink\n\t\t\twe just emailed to you? If you didn't receive the email, we will gladly send you another.\n\t\t"
             ),
           ]),
           _vm._v(" "),
@@ -5890,7 +5949,7 @@ var render = function () {
                       },
                       [
                         _vm._v(
-                          "\n                        Resend Verification Email\n                    "
+                          "\n\t\t\t\t\t\tResend Verification Email\n\t\t\t\t\t"
                         ),
                       ]
                     ),
@@ -5909,11 +5968,7 @@ var render = function () {
                           text: "",
                         },
                       },
-                      [
-                        _vm._v(
-                          "\n                        Log Out\n                    "
-                        ),
-                      ]
+                      [_vm._v("\n\t\t\t\t\tLog Out\n\t\t\t\t\t")]
                     ),
                   ],
                   1
